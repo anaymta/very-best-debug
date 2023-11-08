@@ -1,4 +1,4 @@
-<h1>venue Details</h1>
+<h1>Venue Details</h1>
 
 <dl>
   <dt>Address</dt>
@@ -57,7 +57,8 @@
   <% @the_venue.comments.each do |comment| %>
   <tr>
     <td>
-      <%= comment.commenter.username %>
+      <% commenter = comment.commenter %>
+      <%= commenter.username %>
     </td>
 
     <td>

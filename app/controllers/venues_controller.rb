@@ -1,16 +1,16 @@
 class VenuesController < ApplicationController
 
   def index
-    matching_venues = venue.all
-    venues = matching_venues.order(:created_at)
+    matching_venues = Venue.all
+    @venues = matching_venues.order(:created_at)
 
     render({ :template => "venue_templates/venue_list" })
   end
 
   def show
-    venue_id = params.fetch("venue_id")
+    venue_id = params.fetch("an_id")
     matching_venues = Venue.where({ :id => venue_id })
-    the_venue = matching_venues
+    @the_venue = matching_venues[0]
 
     render({ :template => "venue_templates/details" })
   end
@@ -18,11 +18,11 @@ class VenuesController < ApplicationController
   def create
     @venue = Venue.new
     venue.address = params.fetch("query_address")
-    venue.name = params.fetch("name")
-    venue.neighborhood = params.fetch("neighborhood")
+    venue.name = params.fetch("query_name")
+    venue.neighborhood = params.fetch("query_neighborhood")
     venue.save
 
-    redirect_to("/venues/#{venue.name}")
+    redirect_to("/venues/#{venue.id}")
   end
   
   def update
